@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="quo.css">
 </head>
+
 <body>
-    
+    <div class="quote-box">
+        <h2>Quote for Today</h2>
+        <blockquote>Loading...</blockquote>
+        <span>Loading...</span>
+        <br> <br>
+        <button onclick="getQuotes(api_url)">New Quote</button>
+    </div>
+    <script>
+        const quotechanger = document.querySelector('blockquote');
+        const author = document.querySelector('span');
+        const api_url = "https://dummyjson.com/quotes";
+        async function getQuotes(url) {
+            const response = await fetch(url);
+            var data = await response.json();
+            const randomIndex = Math.floor(Math.random() * data.quotes.length);
+            quotechanger.innerHTML = data.quotes[randomIndex].quote;
+            author.innerHTML = data.quotes[randomIndex].author;
+            console.log(data);
+        }
+        getQuotes(api_url);
+    </script>
 </body>
+
 </html>
